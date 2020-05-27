@@ -422,7 +422,7 @@
             var username = getCookieVariable("video_tag_app_name");
             var videoId = questionList[nextQuestionId]["video_id"];
 
-            $.ajax({url:"http://123.57.138.73:9501?username=" + username + "&video_id=" + videoId + "&algo=" + chosenAlgo,async:true});
+            $.ajax({url:"http://123.57.138.73:9501?username=" + username + "&video_id=" + videoId.toString() + "&algo=" + chosenAlgo,async:true});
 
             console.log("api requested");
         }
