@@ -317,8 +317,9 @@
     <script>
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
         const alternatives = ["original", "mobilenet", "nasnet", "resnet", "technical_score"];
+        const apiHost = "http://123.57.138.73:9501";
 
-        // 生成随机ID,方便刷新时，继续标记
+        // 生成随机ID,方便刷新页面时，也能继续标记
         function genID(length) {
             return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
         }
@@ -414,7 +415,24 @@
             // 设置页面
             setPage(nextQuestionId);
 
-            console.log(document.getElementById("form01").algo.value);
+            var chosenAlgo = document.getElementById("form01").algo.value;
+            console.log(chosenAlgo);
+
+            // 提交服务器数据
+            if (!chosenAlgo.empty()) {
+                var username = getCookieVariable("video_tag_app_name");
+                var videoId = questionList[nextQuestionId]["video_id"];
+
+                $.ajax({
+                    url: apiHost,
+                    data: {username: username, video_id: videoId, algo: chosenAlgo},
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log("api success with return:" + data);
+                    }
+                });
+            }
         }
 
         // 上一题
@@ -426,8 +444,6 @@
 
             // 设置页面
             setPage(prevQuestionId);
-
-            console.log(document.getElementById("form01").algo.value);
         }
 
         $("#prev").click(function () {
