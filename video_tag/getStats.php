@@ -37,7 +37,20 @@ foreach ($result as $item) {
     }
 }
 
-var_dump($algoStats);
+echo "<h3>divide by algo:</h3>";
+foreach ($algoStats as $k => $v) {
+    echo "<h4>".$k." -- ".$v."</h4>";
+}
+
 echo "<br>";
-echo "<br>";
-var_dump($videoStats);
+
+echo "<h3>divide by algo:</h3>";
+foreach ($videoStats as $videoId => $algoDetail) {
+    echo "<h4>".$videoId." >>> ";
+    $temp = "";
+    foreach ($algoDetail as $k => $v) {
+        $temp .= $k." -- ".$v." | ";
+    }
+    $temp = rtrim($temp, "| ");
+    echo $temp."</h4>";
+}
