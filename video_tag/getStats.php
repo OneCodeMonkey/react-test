@@ -37,14 +37,14 @@ foreach ($result as $item) {
     }
 }
 
-echo "<h3>divide by algo:</h3>";
+echo "<h3 style="color: blue;">divide by algo:</h3>";
 foreach ($algoStats as $k => $v) {
     echo "<h4>".$k." -- ".$v."</h4>";
 }
 
 echo "<br>";
 
-echo "<h3>divide by algo:</h3>";
+echo "<h3 style="color: blue;">divide by algo:</h3>";
 foreach ($videoStats as $videoId => $algoDetail) {
     echo "<h4>".$videoId." >>> ";
     $temp = "";
