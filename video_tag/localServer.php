@@ -22,6 +22,9 @@ $http->on('request', function ($request, $response) {
         $data = json_decode(trim(fgets($fin), "\r\n"), true);
         // 重复标记，覆盖之前的结果
         $data[$videoId] = $algo;
+        ftruncate($fin,0); // 将文件截断到给定的长度
+        rewind($fin); // 倒回文件指针的位置
+
         fwrite($fin, json_encode($data));
         fclose($fin);
     }
