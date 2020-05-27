@@ -9,6 +9,8 @@ $http->on('request', function ($request, $response) {
 
     $debug = ["username" => $username, "video_id" => $videoId, "algo" => $algo];
 
+    $fout = fopen("log.txt", "a+");
+    fwrite($fout, date("Y-m-d H:i:s") . " -- " . json_encode($debug));
     var_dump($debug);
 
     $response->header("Content-Type", "application/json; charset=utf-8");
