@@ -12,7 +12,7 @@ function fixLength($str, $length) {
     } else {
         $str .= str_repeat(" ", $length - strlen($str));
     }
-    return str;
+    return $str;
 }
 
 $result = [];
