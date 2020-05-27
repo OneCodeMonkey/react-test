@@ -1,6 +1,7 @@
 <?php
 
 $path = "/www/wwwroot/react-test/video_tag/records/";
+$alternativeList = ["original", "mobilenet", "nasnet", "resnet", "technical_score"];
 
 $fileLists = scandir($path);
 
@@ -48,8 +49,11 @@ echo "<h3 style='color: blue;'>divide by algo:</h3>";
 foreach ($videoStats as $videoId => $algoDetail) {
     echo "<h4>".$videoId." >>> ";
     $temp = "";
-    foreach ($algoDetail as $k => $v) {
-        $temp .= $k." -- ".$v." | ";
+    foreach ($alternativeList as $item) {
+        if (isset($algoDetail[$item])) {
+            $temp .= $item." -- ".$algoDetail[$item]." | ";
+            echo "length".strlen($temp);
+        }
     }
     $temp = rtrim($temp, "| ");
     echo $temp."</h4>";
