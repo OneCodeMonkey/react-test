@@ -3,9 +3,9 @@
 $http = new Swoole\Http\Server("0.0.0.0", 9501);
 
 $http->on('request', function ($request, $response) {
-    $username = $request->post["username"];
-    $videoId = $request->post["video_id"];
-    $algo = $request->post["algo"];
+    $username = $request->get["username"];
+    $videoId = $request->get["video_id"];
+    $algo = $request->get["algo"];
 
     $debug = ["username" => $username, "video_id" => $video_id, "algo" => $algo];
 
