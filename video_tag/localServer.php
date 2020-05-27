@@ -7,7 +7,7 @@ $http->on('request', function ($request, $response) {
     $videoId = $request->get["video_id"];
     $algo = $request->get["algo"];
 
-    $debug = ["username" => $username, "video_id" => $video_id, "algo" => $algo];
+    $debug = ["username" => $username, "video_id" => $videoId, "algo" => $algo];
 
     var_dump($debug);
 
