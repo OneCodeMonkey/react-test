@@ -422,15 +422,7 @@
             var username = getCookieVariable("video_tag_app_name");
             var videoId = questionList[nextQuestionId]["video_id"];
 
-            $.ajax({
-                url: apiHost,
-                data: {username: username, video_id: videoId, algo: chosenAlgo},
-                type: "POST",
-                dataType: "json",
-                success: function (data) {
-                    console.log("api success with return:" + data);
-                }
-            });
+            $.ajax({url:"http://127.0.0.1:9501?username=" + username + "&video_id=" + videoId + "&algo=" + chosenAlgo,async:false});
 
             console.log("api requested");
         }
