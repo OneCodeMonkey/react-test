@@ -10,7 +10,7 @@ function fixLength($str, $length) {
     if (strlen($str) >= $length) {
         return $str;
     } else {
-        $str .= str_repeact(" ", $length - strlen($str));
+        $str .= str_repeat(" ", $length - strlen($str));
     }
     return str;
 }
