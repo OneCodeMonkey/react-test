@@ -28,7 +28,7 @@ foreach ($result as $item) {
                 $videoStats[$videoId][$algo] = 1;
             }
 
-            if (isset($algoStats[$algo]) {
+            if (isset($algoStats[$algo])) {
                 $algoStats[$algo] = intval($algoStats[$algo]) + 1;
             } else {
                 $algoStats[$algo] = 1;
