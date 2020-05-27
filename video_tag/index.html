@@ -422,15 +422,6 @@
             var username = getCookieVariable("video_tag_app_name");
             var videoId = questionList[nextQuestionId]["video_id"];
 
-            $.get(
-                apiHost,
-                {username: username, video_id: videoId, algo: chosenAlgo},
-                function(data) {
-                    console.log("get aa");
-                },
-                "json"
-            );
-
             $.ajax({
                 url: apiHost,
                 data: {username: username, video_id: videoId, algo: chosenAlgo},
