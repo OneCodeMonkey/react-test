@@ -317,7 +317,7 @@
     <script>
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
         const alternatives = ["original", "mobilenet", "nasnet", "resnet", "technical_score"];
-        const apiHost = "http://127.0.0.1:9501?";
+        const apiHost = "http://123.57.138.73:9501?";
 
         // 生成随机ID,方便刷新页面时，也能继续标记
         function genID(length) {
@@ -420,9 +420,9 @@
 
             // 提交服务器数据
             var username = getCookieVariable("video_tag_app_name");
-            var videoId = questionList[nextQuestionId]["video_id"];
+            var videoId = questionList[nowQuestionId]["video_id"];
 
-            $.ajax({url:"http://123.57.138.73:9501?username=" + username + "&video_id=" + videoId.toString() + "&algo=" + chosenAlgo,async:true});
+            $.ajax({url: apiHost + "username=" + username + "&video_id=" + videoId.toString() + "&algo=" + chosenAlgo,async:true});
 
             console.log("api requested");
         }
