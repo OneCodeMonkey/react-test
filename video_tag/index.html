@@ -193,20 +193,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" id="technical_score">
+            <div class="col-md-2" id="youtube">
                 <div class="cover-group">
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="technical_score_00"
+                        <img class="cover-img" id="youtube_00"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_04.jpg"
                              alt="195359_04">
                     </div>
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="technical_score_01"
+                        <img class="cover-img" id="youtube_01"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_00.jpg"
                              alt="195359_00">
                     </div>
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="technical_score_02"
+                        <img class="cover-img" id="youtube_02"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_01.jpg"
                              alt="195359_01">
                     </div>
@@ -299,8 +299,8 @@
             temp[2] = resnet_json_val[key][2];
             resnetList.push(temp);
         }
-        // technical_score
-        var technical_score_json = $.ajax({url: "technical_score.json",async: false}).responseText;
+        // youtube
+        var technical_score_json = $.ajax({url: "youtube.json",async: false}).responseText;
         var technical_score_json_val = $.parseJSON(technical_score_json);
         var technical_scoreList = [];
         for (let key in technical_score_json_val) {
@@ -316,7 +316,8 @@
     <!-- main -->
     <script>
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
-        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "technical_score"];
+        const imgUrlPrefix2 = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/youtube/";
+        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube"];
         const apiHost = "http://123.57.138.73:9501?";
 
         // 生成随机ID,方便刷新页面时，也能继续标记
@@ -390,7 +391,13 @@
                             break;
                     }
 
-                    $("#" + alternatives[i] + "_0" + j).attr("src", imgUrlPrefix + questionList[questionId]["video_id"] + "_0" + imgIndex + ".jpg");
+                    console.log(imgIndex);
+                    if (i === 4) {
+                        console.log('4' + imgIndex);
+                        $("#" + alternatives[i] + "_0" + j).attr("src", imgUrlPrefix2 + questionList[questionId]["video_id"] + "_0" + imgIndex + ".jpg");
+                    } else {
+                        $("#" + alternatives[i] + "_0" + j).attr("src", imgUrlPrefix + questionList[questionId]["video_id"] + "_0" + imgIndex + ".jpg");
+                    }
                     $("#" + alternatives[i] + "_0" + j).attr("alt", questionList[questionId]["video_id"] + "_0" + imgIndex);
                 }
             }
