@@ -28,6 +28,9 @@
         .media-heading{
             text-align: center;
         }
+        .media-heading2{
+            text-align: center;
+        }
 
         #video_1{
             height: 4%;
@@ -89,6 +92,10 @@
             width: 30%;
             margin: 5px 5%;
         }
+        .media-video2{
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -108,12 +115,24 @@
                 </div>
             </div>
 
-            <div class="col-md-1"></div>
-
-            <div class="col-md-5" id="infoBoard">
+            <div class="col-md-2">
                 <h3>当前标记： <span id="nowID">56</span>&nbsp;/&nbsp;<span>100</span></h3>
                 <h3 id="cookieInfo">提示信息：给当前的视频，选一组您认为最佳的封面。</h3>
-<!--                <h4></h4>-->
+                <!--                <h4></h4>-->
+            </div>
+
+            <div class="col-md-5" id="infoBoard">
+                <div class="media">
+                    <div class="media-top">
+                        <a href="#">
+                            <!--                            <img class="media-object" src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_00.jpg" alt="195359_00">-->
+                            <video class="media-video2" src="http://eyepetizer-videos.oss-cn-beijing.aliyuncs.com/d155747de9290d83dacce27711fd29f3_1280x720.mp4" alt="video-195359" controls autoplay>0</video>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading2">生成摘要 - 原视频_195359</h4>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" id="cover-groups">
@@ -269,6 +288,19 @@
             questionList.push(temp);
         }
 
+        // 读取摘要视频信息
+        var video_summary_json = $.ajax({url: "videoid-summaryurl.json",async: false}).responseText;
+        var video_summary_json_val = $.parseJSON(video_summary_json);
+
+        var questionList2 = [];
+        for (let key in video_summary_json_val) {
+            let temp = [];
+            temp["video_id"] = key;
+            temp["url"] = video_summary_json_val[key];
+
+            questionList2.push(temp);
+        }
+
         // mobilenet
         var mobilenet_json = $.ajax({url: "mobilenet_new.json",async: false}).responseText;
         var mobilenet_json_val = $.parseJSON(mobilenet_json);
@@ -367,7 +399,12 @@
             // 提示题目序号
             nowIdTitle.innerHTML = getCookieVariable("question_id");
 
-            // 视频信息
+            // // 摘要视频信息
+            // $(".media-video2").attr("src", questionList2[questionId]["url"]);
+            // $(".media-video2").attr("alt", "video-" + questionList2[questionId]["video_id"]);
+            // $(".media-heading2").text("生成摘要 - 原视频_" + questionList2[questionId]["video_id"]);
+
+            // 原视频信息
             $(".media-video").attr("src", questionList[questionId]["url"]);
             $(".media-video").attr("alt", "video-" + questionList[questionId]["video_id"]);
             $(".media-heading").text("原视频_" + questionList[questionId]["video_id"]);
