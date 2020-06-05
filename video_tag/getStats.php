@@ -1,7 +1,7 @@
 <?php
 
 $path = "/www/wwwroot/react-test/video_tag/records/";
-$alternativeList = ["original", "mobilenet", "nasnet", "resnet", "technical_score"];
+$alternativeList = ["original", "mobilenet", "nasnet", "resnet", "youtube"];
 
 $fileLists = scandir($path);
 
