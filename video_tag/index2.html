@@ -231,8 +231,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-
+            <div class="col-md-2" id="vgg16_ft">
+                <div class="cover-group">
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg16_ft_00"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_03.jpg"
+                             alt="195359_03">
+                    </div>
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg16_ft_01"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_04.jpg"
+                             alt="195359_04">
+                    </div>
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg16_ft_02"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_00.jpg"
+                             alt="195359_00">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" id="answer-radio-groups">
@@ -251,9 +267,9 @@
                         <label class="radio-inline">
                             <input type="radio"  value="youtube" name="algo">
                         </label>
-<!--                        <label class="radio-inline">-->
-<!--                            <input type="radio"  value="resnet" name="algo">-->
-<!--                        </label>-->
+                        <label class="radio-inline">
+                            <input type="radio"  value="vgg16_ft" name="algo">
+                        </label>
 <!--                        <label class="radio-inline">-->
 <!--                            <input type="radio"  value="youtube" name="algo">-->
 <!--                        </label>-->
@@ -312,28 +328,30 @@
             temp[2] = mobilenet_json_val[key][2];
             mobilenetList.push(temp);
         }
-        // nasnet
-        var nasnet_json = $.ajax({url: "nasnet.json",async: false}).responseText;
-        var nasnet_json_val = $.parseJSON(nasnet_json);
-        var nasnetList = [];
-        for (let key in nasnet_json_val) {
-            let temp = [];
-            temp[0] = nasnet_json_val[key][0];
-            temp[1] = nasnet_json_val[key][1];
-            temp[2] = nasnet_json_val[key][2];
-            nasnetList.push(temp);
-        }
-        // resnet
-        var resnet_json = $.ajax({url: "resnet.json",async: false}).responseText;
-        var resnet_json_val = $.parseJSON(resnet_json);
-        var resnetList = [];
-        for (let key in resnet_json_val) {
-            let temp = [];
-            temp[0] = resnet_json_val[key][0];
-            temp[1] = resnet_json_val[key][1];
-            temp[2] = resnet_json_val[key][2];
-            resnetList.push(temp);
-        }
+
+        // // nasnet
+        // var nasnet_json = $.ajax({url: "nasnet.json",async: false}).responseText;
+        // var nasnet_json_val = $.parseJSON(nasnet_json);
+        // var nasnetList = [];
+        // for (let key in nasnet_json_val) {
+        //     let temp = [];
+        //     temp[0] = nasnet_json_val[key][0];
+        //     temp[1] = nasnet_json_val[key][1];
+        //     temp[2] = nasnet_json_val[key][2];
+        //     nasnetList.push(temp);
+        // }
+        // // resnet
+        // var resnet_json = $.ajax({url: "resnet.json",async: false}).responseText;
+        // var resnet_json_val = $.parseJSON(resnet_json);
+        // var resnetList = [];
+        // for (let key in resnet_json_val) {
+        //     let temp = [];
+        //     temp[0] = resnet_json_val[key][0];
+        //     temp[1] = resnet_json_val[key][1];
+        //     temp[2] = resnet_json_val[key][2];
+        //     resnetList.push(temp);
+        // }
+
         // youtube
         var technical_score_json = $.ajax({url: "youtube_cover_166.json",async: false}).responseText;
         var technical_score_json_val = $.parseJSON(technical_score_json);
@@ -345,6 +363,19 @@
             temp[2] = technical_score_json_val[key][2];
             technical_scoreList.push(temp);
         }
+
+        // vgg16_ft
+        var vgg16_ft_json = $.ajax({url: "vgg16_ft_cover_166.json",async: false}).responseText;
+        var vgg16_ft_json_val = $.parseJSON(vgg16_ft_json);
+        var vgg16_ftList = [];
+        for (let key in vgg16_ft_json_val) {
+            let temp = [];
+            temp[0] = vgg16_ft_json_val[key][0];
+            temp[1] = vgg16_ft_json_val[key][1];
+            temp[2] = vgg16_ft_json_val[key][2];
+            vgg16_ftList.push(temp);
+        }
+
         // 读取题目信息 end
     </script>
 
@@ -356,7 +387,7 @@
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
         const imgUrlPrefix2 = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/youtube/";
         const category17_top10_166_videos_imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/17category_top10_166videos_export_cover/";
-        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube"];
+        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft"];
         const apiHost = "http://123.57.138.73:9501?";
 
         // 生成随机ID,方便刷新页面时，也能继续标记
@@ -414,7 +445,7 @@
             $(".media-heading").text("原视频_" + questionList[questionId]["video_id"]);
 
             // 图片信息
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 6; i++) {
                 for (let j = 0; j < 3; j++) {
                     // 对应算法的图片的 index
                     switch (i) {
@@ -433,6 +464,9 @@
                         case 4:
                             var imgIndex = technical_scoreList[questionId][j];
                             break;
+                        case 5:
+                            var imgIndex = vgg16_ftList[questionId][j];
+                            console.log("vgg16_ft");
                     }
 
                     $("#" + alternatives[i] + "_0" + j).attr("src", category17_top10_166_videos_imgUrlPrefix + questionList[questionId]["video_id"] + "_0" + imgIndex + ".jpg");
