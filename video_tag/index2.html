@@ -250,6 +250,25 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-2" id="vgg_ft">
+                <div class="cover-group">
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg_ft_00"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_03.jpg"
+                             alt="195359_03">
+                    </div>
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg_ft_01"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_04.jpg"
+                             alt="195359_04">
+                    </div>
+                    <div class="vertical-cover-list-item">
+                        <img class="cover-img" id="vgg_ft_02"
+                             src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_00.jpg"
+                             alt="195359_00">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row" id="answer-radio-groups">
             <div class="col-md-10" id="answer">
@@ -270,9 +289,9 @@
                         <label class="radio-inline">
                             <input type="radio"  value="vgg16_ft" name="algo">
                         </label>
-<!--                        <label class="radio-inline">-->
-<!--                            <input type="radio"  value="youtube" name="algo">-->
-<!--                        </label>-->
+                        <label class="radio-inline">
+                            <input type="radio"  value="vgg_ft" name="algo">
+                        </label>
                     </div>
 
                     <button class="btn btn-default" type="button" id="prev">重选上一个</button>
@@ -376,6 +395,18 @@
             vgg16_ftList.push(temp);
         }
 
+        // vgg_ft
+        var vgg_ft_json = $.ajax({url: "vgg_ft_cover_166.json",async: false}).responseText;
+        var vgg_ft_json_val = $.parseJSON(vgg_ft_json);
+        var vgg_ftList = [];
+        for (let key in vgg_ft_json_val) {
+            let temp = [];
+            temp[0] = vgg_ft_json_val[key][0];
+            temp[1] = vgg_ft_json_val[key][1];
+            temp[2] = vgg_ft_json_val[key][2];
+            vgg_ftList.push(temp);
+        }
+
         // 读取题目信息 end
     </script>
 
@@ -387,7 +418,7 @@
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
         const imgUrlPrefix2 = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/youtube/";
         const category17_top10_166_videos_imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/17category_top10_166videos_export_cover/";
-        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft"];
+        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft", "vgg_ft"];
         const apiHost = "http://123.57.138.73:9501?";
 
         // 生成随机ID,方便刷新页面时，也能继续标记
@@ -445,7 +476,7 @@
             $(".media-heading").text("原视频_" + questionList[questionId]["video_id"]);
 
             // 图片信息
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i <= 6; i++) {
                 for (let j = 0; j < 3; j++) {
                     // 对应算法的图片的 index
                     switch (i) {
@@ -466,7 +497,10 @@
                             break;
                         case 5:
                             var imgIndex = vgg16_ftList[questionId][j];
-                            console.log("vgg16_ft");
+                            break;
+                        case 6:
+                            var imgIndex = vgg_ftList[questionId][j];
+                            break;
                     }
 
                     $("#" + alternatives[i] + "_0" + j).attr("src", category17_top10_166_videos_imgUrlPrefix + questionList[questionId]["video_id"] + "_0" + imgIndex + ".jpg");
