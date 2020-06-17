@@ -250,20 +250,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" id="vgg_ft">
+            <div class="col-md-2" id="vgg16_ft_new_neg">
                 <div class="cover-group">
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="vgg_ft_00"
+                        <img class="cover-img" id="vgg16_ft_new_neg_00"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_03.jpg"
                              alt="195359_03">
                     </div>
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="vgg_ft_01"
+                        <img class="cover-img" id="vgg16_ft_new_neg_01"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_04.jpg"
                              alt="195359_04">
                     </div>
                     <div class="vertical-cover-list-item">
-                        <img class="cover-img" id="vgg_ft_02"
+                        <img class="cover-img" id="vgg16_ft_new_neg_02"
                              src="https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/195359_00.jpg"
                              alt="195359_00">
                     </div>
@@ -290,7 +290,7 @@
                             <input type="radio"  value="vgg16_ft" name="algo">
                         </label>
                         <label class="radio-inline">
-                            <input type="radio"  value="vgg_ft" name="algo">
+                            <input type="radio"  value="vgg16_ft_new_neg" name="algo">
                         </label>
                     </div>
 
@@ -395,16 +395,16 @@
             vgg16_ftList.push(temp);
         }
 
-        // vgg_ft
-        var vgg_ft_json = $.ajax({url: "vgg_ft_cover_166.json",async: false}).responseText;
-        var vgg_ft_json_val = $.parseJSON(vgg_ft_json);
-        var vgg_ftList = [];
-        for (let key in vgg_ft_json_val) {
+        // vgg16_ft_new_neg
+        var vgg16_ft_new_neg_json = $.ajax({url: "vgg16_ft_new_neg_cover_166.json",async: false}).responseText;
+        var vgg16_ft_new_neg_json_val = $.parseJSON(vgg16_ft_new_neg_json);
+        var vgg16_ft_new_negList = [];
+        for (let key in vgg16_ft_new_neg_json_val) {
             let temp = [];
-            temp[0] = vgg_ft_json_val[key][0];
-            temp[1] = vgg_ft_json_val[key][1];
-            temp[2] = vgg_ft_json_val[key][2];
-            vgg_ftList.push(temp);
+            temp[0] = vgg16_ft_new_neg_json_val[key][0];
+            temp[1] = vgg16_ft_new_neg_json_val[key][1];
+            temp[2] = vgg16_ft_new_neg_json_val[key][2];
+            vgg16_ft_new_negList.push(temp);
         }
 
         // 读取题目信息 end
@@ -418,7 +418,7 @@
         const imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/500_most_played_video_export_frames/";
         const imgUrlPrefix2 = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/youtube/";
         const category17_top10_166_videos_imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/17category_top10_166videos_export_cover/";
-        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft", "vgg_ft"];
+        const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft", "vgg16_ft_new_neg"];
         const apiHost = "http://123.57.138.73:9501?";
 
         // 生成随机ID,方便刷新页面时，也能继续标记
@@ -499,7 +499,7 @@
                             var imgIndex = vgg16_ftList[questionId][j];
                             break;
                         case 6:
-                            var imgIndex = vgg_ftList[questionId][j];
+                            var imgIndex = vgg16_ft_new_negList[questionId][j];
                             break;
                     }
 
