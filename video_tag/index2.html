@@ -96,6 +96,11 @@
             width: 100%;
             height: 100%;
         }
+        #analyzeCategory1_1, #analyzeCategory1_2,#analyzeCategory2{
+            font-style: italic;
+            color: blue;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -117,8 +122,19 @@
 
             <div class="col-md-3">
                 <h3>当前标记： <span id="nowID">56</span>&nbsp;/&nbsp;<span>166</span></h3>
-                <h3 id="cookieInfo">提示信息：给当前的视频，选一组您认为最佳的封面。<br/><br/>右侧为生成的视频摘要<br/>================ > </h3>
-                <!--                <h4></h4>-->
+                <h3>================ ></h3>
+                <h4 id="cookieInfo">
+                    自研top1：
+                    <span id="analyzeCategory1_1">未知</span>
+                </h4>
+                <h4 id="cookieInfo1_1">
+                    自研top2：
+                    <span id="analyzeCategory1_2">未知</span>
+                </h4>
+                <h4 id="cookieInfo2">
+                    阿里：
+                    <span id="analyzeCategory2">运动-Extreme sport</span>
+                </h4>
             </div>
 
             <div class="col-md-4" id="infoBoard">
@@ -407,6 +423,30 @@
             vgg16_ft_new_negList.push(temp);
         }
 
+        // ali_multimedia_tag
+        var ali_multimedia_tag_json = $.ajax({url: "17category_top10_tag_output.json",async: false}).responseText;
+        var ali_multimedia_tag_json_val = $.parseJSON(ali_multimedia_tag_json);
+        var ali_multimedia_tagList = [];
+        for (let key in ali_multimedia_tag_json_val) {
+            let temp = [];
+            temp[0] = ali_multimedia_tag_json_val[key][0];
+            temp[1] = ali_multimedia_tag_json_val[key][1];
+            ali_multimedia_tagList.push(temp);
+        }
+
+        // dukun_tag
+        var dukun_tag_json = $.ajax({url: "dukun_tag_top166_with_ad.json",async: false}).responseText;
+        var dukun_tag_json_val = $.parseJSON(dukun_tag_json);
+        var dukun_tagList = [];
+        for (let key in dukun_tag_json_val) {
+            let temp = [];
+            temp[0] = dukun_tag_json_val[key][0];
+            temp[1] = dukun_tag_json_val[key][1];
+            temp[2] = dukun_tag_json_val[key][2];
+            temp[3] = dukun_tag_json_val[key][3];
+            dukun_tagList.push(temp);
+        }
+
         // 读取题目信息 end
     </script>
 
@@ -474,6 +514,15 @@
             $(".media-video").attr("src", questionList[questionId]["url"]);
             $(".media-video").attr("alt", "video-" + questionList[questionId]["video_id"]);
             $(".media-heading").text("原视频_" + questionList[questionId]["video_id"]);
+
+            // 分类tag 信息
+            var aliTag = ali_multimedia_tagList[questionId][0] + "  >>>  "
+                + ali_multimedia_tagList[questionId][1];
+            var dukunTag1 = dukun_tagList[questionId][0] + " —— " + dukun_tagList[questionId][1];
+            var dukunTag2 = dukun_tagList[questionId][2] + " —— " + dukun_tagList[questionId][3];
+            $("#analyzeCategory1_1").text(dukunTag1);
+            $("#analyzeCategory1_2").text(dukunTag2);
+            $("#analyzeCategory2").text(aliTag);
 
             // 图片信息
             for (let i = 0; i <= 6; i++) {
