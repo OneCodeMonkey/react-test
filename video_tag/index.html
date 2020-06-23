@@ -448,6 +448,12 @@
             setPage(1);
         } else {
             var nowQuestionId = getCookieVariable("question_id");
+            // 修正cookie值异常
+            if (nowQuestionId > maxQuestionNum) {
+                nowQuestionId = maxQuestionNum;
+            } else if (nowQuestionId < 1) {
+                nowQuestionId = 1;
+            }
             setPage(nowQuestionId);
         }
         console.log(cookieArray);
@@ -455,7 +461,7 @@
         // 下一题
         function btnNext() {
             var nowQuestionId = getCookieVariable("question_id");
-            var nextQuestionId = parseInt(nowQuestionId) + 1;
+            var nextQuestionId = parseInt(nowQuestionId) + 1 <= maxQuestionNum ? parseInt(nowQuestionId) + 1 : maxQuestionNum;
             console.log("next question id:" + nextQuestionId);
             setCookieVariable("question_id", nextQuestionId);
 
@@ -477,7 +483,7 @@
         // 上一题
         function btnPrev() {
             var nowQuestionId = getCookieVariable("question_id");
-            var prevQuestionId = parseInt(nowQuestionId) - 1;
+            var prevQuestionId = parseInt(nowQuestionId) - 1 >= 1 ? parseInt(nowQuestionId) - 1 : 1;
             console.log("prev question id:" + prevQuestionId);
             setCookieVariable("question_id", prevQuestionId);
 
