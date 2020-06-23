@@ -460,6 +460,7 @@
         const category17_top10_166_videos_imgUrlPrefix = "https://resource-thefair-bj.oss-cn-beijing.aliyuncs.com/weiboStatistics/video_kaiyan_compare_cover_algorithms/17category_top10_166videos_export_cover/";
         const alternatives = ["original", "mobilenet", "nasnet", "resnet", "youtube", "vgg16_ft", "vgg16_ft_new_neg"];
         const apiHost = "http://123.57.138.73:9501?";
+        const maxQuestionNum = 166;
 
         // 生成随机ID,方便刷新页面时，也能继续标记
         function genID(length) {
@@ -564,6 +565,12 @@
             setPage(1);
         } else {
             var nowQuestionId = getCookieVariable("question_id");
+            // 修正cookie值异常
+            if (nowQuestionId > maxQuestionNum) {
+                nowQuestionId = maxQuestionNum;
+            } else if (nowQuestionId < 1) {
+                nowQuestionId = 1;
+            }
             setPage(nowQuestionId);
         }
         console.log(cookieArray);
@@ -571,7 +578,7 @@
         // 下一题
         function btnNext() {
             var nowQuestionId = getCookieVariable("question_id");
-            var nextQuestionId = parseInt(nowQuestionId) + 1;
+            var nextQuestionId = parseInt(nowQuestionId) + 1 <= maxQuestionNum ? parseInt(nowQuestionId) + 1 : maxQuestionNum;
             console.log("next question id:" + nextQuestionId);
             setCookieVariable("question_id", nextQuestionId);
 
@@ -593,7 +600,7 @@
         // 上一题
         function btnPrev() {
             var nowQuestionId = getCookieVariable("question_id");
-            var prevQuestionId = parseInt(nowQuestionId) - 1;
+            var prevQuestionId = parseInt(nowQuestionId) - 1 >= 1 ? parseInt(nowQuestionId) - 1 : 1;
             console.log("prev question id:" + prevQuestionId);
             setCookieVariable("question_id", prevQuestionId);
 
