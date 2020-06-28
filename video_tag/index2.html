@@ -96,7 +96,7 @@
             width: 100%;
             height: 100%;
         }
-        #analyzeCategory1_1, #analyzeCategory1_2,#analyzeCategory2,#analyzeCategory3_1,#analyzeCategory3_2{
+        #analyzeCategory1_1, #analyzeCategory1_2,#analyzeCategory2,#analyzeCategory3_1,#analyzeCategory3_2,#analyzeCategory3_3{
             font-style: italic;
             color: blue;
             font-weight: bold;
@@ -142,6 +142,10 @@
                 <h4 id="cookieInfo3_1">
                     自研2-top2：
                     <span id="analyzeCategory3_2">未知</span>
+                </h4>
+                <h4 id="cookieInfo3_2">
+                    自研2-top3：
+                    <span id="analyzeCategory3_3">未知</span>
                 </h4>
             </div>
 
@@ -468,6 +472,7 @@
             let temp = [];
             temp[0] = haoyi_tag_json_val[key][0][0];
             temp[1] = haoyi_tag_json_val[key][1][0];
+            temp[2] = haoyi_tag_json_val[key][2][0];
             haoyi_tagList[key] = temp;
         }
 
@@ -551,6 +556,7 @@
             var dukunTag2 = dukun_tagList[realVideoId][3] + " —— ";
             var haoyiTag1 = haoyi_tagList[realVideoId][0];
             var haoyiTag2 = haoyi_tagList[realVideoId][1];
+            var haoyiTag3 = haoyi_tagList[realVideoId][2];
 
             var categoryList = [];
             var tagMappingCategory1 = "";
@@ -582,6 +588,7 @@
             $("#analyzeCategory2").text(aliTag);
             $("#analyzeCategory3_1").text(haoyiTag1);
             $("#analyzeCategory3_2").text(haoyiTag2);
+            $("#analyzeCategory3_3").text(haoyiTag3);
 
             // 图片信息
             for (let i = 0; i <= 6; i++) {
