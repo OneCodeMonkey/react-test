@@ -557,7 +557,6 @@
             var tagMappingCategory2 = "";
             if (typeof haoyi_category_mappingList[dukun_tagList[realVideoId][1]] != 'undefined') {
                 categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][1]];
-                tagMappingCategory1 = " (";
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
                         tagMappingCategory1 += categoryList[i] + ",";
@@ -565,12 +564,10 @@
                 }
 
                 tagMappingCategory1 = tagMappingCategory1.substring(0, tagMappingCategory1.lastIndexOf(","));
-                tagMappingCategory1 += ")";
             }
 
             if (typeof haoyi_category_mappingList[dukun_tagList[realVideoId][3]] != 'undefined') {
                 categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][3]];
-                tagMappingCategory2 = " (";
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
                         tagMappingCategory2 += categoryList[i] + ",";
@@ -578,7 +575,6 @@
                 }
 
                 tagMappingCategory2 = tagMappingCategory2.substring(0, tagMappingCategory2.lastIndexOf(","));
-                tagMappingCategory2 += ")";
             }
 
             $("#analyzeCategory1_1").text(dukunTag1 + tagMappingCategory1);
