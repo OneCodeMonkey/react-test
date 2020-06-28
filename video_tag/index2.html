@@ -123,26 +123,18 @@
             <div class="col-md-3">
                 <h3>当前标记： <span id="nowID">&nbsp;</span>&nbsp;/&nbsp;<span>166</span></h3>
                 <h3>================ ></h3>
-                <h3 id="cookieInfo">
+                <h4 id="cookieInfo">
                     自研-top1：
                     <span id="analyzeCategory1_1">未知</span>
-                </h3>
-                <h3 id="cookieInfo1_1">
+                </h4>
+                <h4 id="cookieInfo1_1">
                     自研-top2：
                     <span id="analyzeCategory1_2">未知</span>
-                </h3>
-                <h3 id="cookieInfo2">
+                </h4>
+                <h4 id="cookieInfo2">
                     阿里：
                     <span id="analyzeCategory2">运动-Extreme sport</span>
-                </h3>
-<!--                <h3 id="cookieInfo3">-->
-<!--                    自研2-top1：-->
-<!--                    <span id="analyzeCategory3_1">未知</span>-->
-<!--                </h3>-->
-<!--                <h3 id="cookieInfo3_2">-->
-<!--                    自研2-top2：-->
-<!--                    <span id="analyzeCategory3_2">未知</span>-->
-<!--                </h3>-->
+                </h4>
             </div>
 
             <div class="col-md-4" id="infoBoard">
@@ -455,6 +447,11 @@
             dukun_tagList.push(temp);
         }
 
+        // 读取浩艺分类映射
+        var haoyi_category_mapping_json = $.ajax({url: "haoyi_category_mapping.json",async: false}).responseText;
+        var haoyi_category_mapping_json_val = $.parseJSON(haoyi_category_mapping_json);
+        var haoyi_category_mappingList = haoyi_category_mapping_json_val;
+
         // 读取题目信息 end
     </script>
 
@@ -529,8 +526,38 @@
                 + ali_multimedia_tagList[questionId][1];
             var dukunTag1 = dukun_tagList[questionId][0] + " —— " + dukun_tagList[questionId][1];
             var dukunTag2 = dukun_tagList[questionId][2] + " —— " + dukun_tagList[questionId][3];
-            $("#analyzeCategory1_1").text(dukunTag1);
-            $("#analyzeCategory1_2").text(dukunTag2);
+
+            var categoryList = [];
+            var tagMappingCategory1 = "";
+            var tagMappingCategory2 = "";
+            if (typeof haoyi_category_mappingList[dukun_tagList[questionId][1]] != 'undefined') {
+                categoryList = haoyi_category_mappingList[dukun_tagList[questionId][1]];
+                tagMappingCategory1 = " (";
+                for (let i = 0; i < categoryList.length; i++) {
+                    if (categoryList[i] !== "") {
+                        tagMappingCategory1 += categoryList[i] + ",";
+                    }
+                }
+
+                tagMappingCategory1 = tagMappingCategory1.substring(0, tagMappingCategory1.lastIndexOf(","));
+                tagMappingCategory1 += ")";
+            }
+
+            if (typeof haoyi_category_mappingList[dukun_tagList[questionId][3]] != 'undefined') {
+                categoryList = haoyi_category_mappingList[dukun_tagList[questionId][3]];
+                tagMappingCategory2 = " (";
+                for (let i = 0; i < categoryList.length; i++) {
+                    if (categoryList[i] !== "") {
+                        tagMappingCategory2 += categoryList[i] + ",";
+                    }
+                }
+
+                tagMappingCategory2 = tagMappingCategory2.substring(0, tagMappingCategory2.lastIndexOf(","));
+                tagMappingCategory2 += ")";
+            }
+
+            $("#analyzeCategory1_1").text(dukunTag1 + tagMappingCategory1);
+            $("#analyzeCategory1_2").text(dukunTag2 + tagMappingCategory2);
             $("#analyzeCategory2").text(aliTag);
 
             // 图片信息
