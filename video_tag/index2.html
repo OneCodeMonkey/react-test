@@ -554,18 +554,21 @@
             // var dukunTag2 = dukun_tagList[questionId][2] + " —— " + dukun_tagList[questionId][3];
             var dukunTag1 = dukun_tagList[realVideoId][1] + " —— ";
             var dukunTag2 = dukun_tagList[realVideoId][3] + " —— ";
-            var haoyiTag1 = haoyi_tagList[realVideoId][0];
-            var haoyiTag2 = haoyi_tagList[realVideoId][1];
-            var haoyiTag3 = haoyi_tagList[realVideoId][2];
+            var haoyiTag1 = haoyi_tagList[realVideoId][0] + " —— ";
+            var haoyiTag2 = haoyi_tagList[realVideoId][1] + " —— ";
+            var haoyiTag3 = haoyi_tagList[realVideoId][2] + " —— ";
 
             var categoryList = [];
             var tagMappingCategory1 = "";
             var tagMappingCategory2 = "";
+            var tagMappingCategory3_1 = "";
+            var tagMappingCategory3_2 = "";
+            var tagMappingCategory3_3 = "";
             if (typeof haoyi_category_mappingList[dukun_tagList[realVideoId][1]] != 'undefined') {
                 categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][1]];
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
-                        tagMappingCategory1 += categoryList[i] + ",";
+                        tagMappingCategory1 += categoryList[i] + ", ";
                     }
                 }
 
@@ -576,19 +579,52 @@
                 categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][3]];
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
-                        tagMappingCategory2 += categoryList[i] + ",";
+                        tagMappingCategory2 += categoryList[i] + ", ";
                     }
                 }
 
                 tagMappingCategory2 = tagMappingCategory2.substring(0, tagMappingCategory2.lastIndexOf(","));
             }
 
+            for (let i = 0; i < 3; i++) {
+                if (typeof haoyi_category_mappingList[haoyi_tagList[realVideoId][i]] != 'undefined') {
+                    categoryList = haoyi_category_mappingList[haoyi_tagList[realVideoId][i]];
+                    for (let j = 0; j < categoryList.length; j++) {
+                        if (categoryList[j] !== "") {
+                            switch (i) {
+                                case 0:
+                                    tagMappingCategory3_1 += categoryList[j] + ", ";
+                                    break;
+                                case 1:
+                                    tagMappingCategory3_2 += categoryList[j] + ", ";
+                                    break;
+                                case 2:
+                                    tagMappingCategory3_3 += categoryList[j] + ", ";
+                                    break;
+                            }
+                        }
+                    }
+
+                    switch (i) {
+                        case 0:
+                            tagMappingCategory3_1 = tagMappingCategory3_1.substring(0, tagMappingCategory3_1.lastIndexOf(", "));
+                            break;
+                        case 1:
+                            tagMappingCategory3_2 = tagMappingCategory3_2.substring(0, tagMappingCategory3_2.lastIndexOf(", "));
+                            break;
+                        case 2:
+                            tagMappingCategory3_3 = tagMappingCategory3_3.substring(0, tagMappingCategory3_3.lastIndexOf(", "));
+                            break;
+                    }
+                }
+            }
+
             $("#analyzeCategory1_1").text(dukunTag1 + tagMappingCategory1);
             $("#analyzeCategory1_2").text(dukunTag2 + tagMappingCategory2);
             $("#analyzeCategory2").text(aliTag);
-            $("#analyzeCategory3_1").text(haoyiTag1);
-            $("#analyzeCategory3_2").text(haoyiTag2);
-            $("#analyzeCategory3_3").text(haoyiTag3);
+            $("#analyzeCategory3_1").text(haoyiTag1 + tagMappingCategory3_1);
+            $("#analyzeCategory3_2").text(haoyiTag2 + tagMappingCategory3_1);
+            $("#analyzeCategory3_3").text(haoyiTag3 + tagMappingCategory3_1);
 
             // 图片信息
             for (let i = 0; i <= 6; i++) {
