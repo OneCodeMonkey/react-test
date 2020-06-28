@@ -123,18 +123,26 @@
             <div class="col-md-3">
                 <h3>当前标记： <span id="nowID">&nbsp;</span>&nbsp;/&nbsp;<span>166</span></h3>
                 <h3>================ ></h3>
-                <h3 id="cookieInfo">
+                <h4 id="cookieInfo">
                     自研-top1：
                     <span id="analyzeCategory1_1">未知</span>
-                </h3>
-                <h3 id="cookieInfo1_1">
+                </h4>
+                <h4 id="cookieInfo1_1">
                     自研-top2：
                     <span id="analyzeCategory1_2">未知</span>
-                </h3>
-                <h3 id="cookieInfo2">
+                </h4>
+                <h4 id="cookieInfo2">
                     阿里：
                     <span id="analyzeCategory2">运动-Extreme sport</span>
-                </h3>
+                </h4>
+                <h4 id="cookieInfo3">
+                    自研2-top1：
+                    <span id="analyzeCategory3_1">未知</span>
+                </h4>
+                <h4 id="cookieInfo3_1">
+                    自研2-top2：
+                    <span id="analyzeCategory3_2">未知</span>
+                </h4>
             </div>
 
             <div class="col-md-4" id="infoBoard">
@@ -361,7 +369,7 @@
             temp[0] = mobilenet_json_val[key][0];
             temp[1] = mobilenet_json_val[key][1];
             temp[2] = mobilenet_json_val[key][2];
-            mobilenetList.push(temp);
+            mobilenetList[key] = temp;
         }
 
         // // nasnet
@@ -396,7 +404,7 @@
             temp[0] = technical_score_json_val[key][0];
             temp[1] = technical_score_json_val[key][1];
             temp[2] = technical_score_json_val[key][2];
-            technical_scoreList.push(temp);
+            technical_scoreList[key] = temp;
         }
 
         // vgg16_ft
@@ -408,7 +416,7 @@
             temp[0] = vgg16_ft_json_val[key][0];
             temp[1] = vgg16_ft_json_val[key][1];
             temp[2] = vgg16_ft_json_val[key][2];
-            vgg16_ftList.push(temp);
+            vgg16_ftList[key] = temp;
         }
 
         // vgg16_ft_new_neg
@@ -420,7 +428,7 @@
             temp[0] = vgg16_ft_new_neg_json_val[key][0];
             temp[1] = vgg16_ft_new_neg_json_val[key][1];
             temp[2] = vgg16_ft_new_neg_json_val[key][2];
-            vgg16_ft_new_negList.push(temp);
+            vgg16_ft_new_negList[key] = temp;
         }
 
         // ali_multimedia_tag
@@ -431,7 +439,7 @@
             let temp = [];
             temp[0] = ali_multimedia_tag_json_val[key][0];
             temp[1] = ali_multimedia_tag_json_val[key][1];
-            ali_multimedia_tagList.push(temp);
+            ali_multimedia_tagList[key] = temp;
         }
 
         // dukun_tag
@@ -444,13 +452,24 @@
             temp[1] = dukun_tag_json_val[key][1];
             temp[2] = dukun_tag_json_val[key][2];
             temp[3] = dukun_tag_json_val[key][3];
-            dukun_tagList.push(temp);
+            dukun_tagList[key] = temp;
         }
 
         // 读取浩艺分类映射
         var haoyi_category_mapping_json = $.ajax({url: "haoyi_category_mapping.json",async: false}).responseText;
         var haoyi_category_mapping_json_val = $.parseJSON(haoyi_category_mapping_json);
         var haoyi_category_mappingList = haoyi_category_mapping_json_val;
+
+        // haoyi_tag
+        var haoyi_tag_json = $.ajax({url: "haoyi_17category_top10_tag.json",async: false}).responseText;
+        var haoyi_tag_json_val = $.parseJSON(haoyi_tag_json);
+        var haoyi_tagList = [];
+        for (let key in haoyi_tag_json_val) {
+            let temp = [];
+            temp[0] = haoyi_tag_json_val[key][0][0];
+            temp[1] = haoyi_tag_json_val[key][1][0];
+            haoyi_tagList[key] = temp;
+        }
 
         // 读取题目信息 end
     </script>
@@ -521,19 +540,23 @@
             $(".media-video").attr("alt", "video-" + questionList[questionId]["video_id"]);
             $(".media-heading").text("原视频_" + questionList[questionId]["video_id"]);
 
+            var realVideoId = questionList[questionId]["video_id"];
+
             // 分类tag 信息
-            var aliTag = ali_multimedia_tagList[questionId][0] + "  >>>  "
-                + ali_multimedia_tagList[questionId][1];
+            var aliTag = ali_multimedia_tagList[realVideoId][0] + "  >>>  "
+                + ali_multimedia_tagList[realVideoId][1];
             // var dukunTag1 = dukun_tagList[questionId][0] + " —— " + dukun_tagList[questionId][1];
             // var dukunTag2 = dukun_tagList[questionId][2] + " —— " + dukun_tagList[questionId][3];
-            var dukunTag1 = dukun_tagList[questionId][1] + " —— ";
-            var dukunTag2 = dukun_tagList[questionId][3] + " —— ";
+            var dukunTag1 = dukun_tagList[realVideoId][1] + " —— ";
+            var dukunTag2 = dukun_tagList[realVideoId][3] + " —— ";
+            var haoyiTag1 = haoyi_tagList[realVideoId][0];
+            var haoyiTag2 = haoyi_tagList[realVideoId][1];
 
             var categoryList = [];
             var tagMappingCategory1 = "";
             var tagMappingCategory2 = "";
-            if (typeof haoyi_category_mappingList[dukun_tagList[questionId][1]] != 'undefined') {
-                categoryList = haoyi_category_mappingList[dukun_tagList[questionId][1]];
+            if (typeof haoyi_category_mappingList[dukun_tagList[realVideoId][1]] != 'undefined') {
+                categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][1]];
                 tagMappingCategory1 = " (";
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
@@ -545,8 +568,8 @@
                 tagMappingCategory1 += ")";
             }
 
-            if (typeof haoyi_category_mappingList[dukun_tagList[questionId][3]] != 'undefined') {
-                categoryList = haoyi_category_mappingList[dukun_tagList[questionId][3]];
+            if (typeof haoyi_category_mappingList[dukun_tagList[realVideoId][3]] != 'undefined') {
+                categoryList = haoyi_category_mappingList[dukun_tagList[realVideoId][3]];
                 tagMappingCategory2 = " (";
                 for (let i = 0; i < categoryList.length; i++) {
                     if (categoryList[i] !== "") {
@@ -561,6 +584,8 @@
             $("#analyzeCategory1_1").text(dukunTag1 + tagMappingCategory1);
             $("#analyzeCategory1_2").text(dukunTag2 + tagMappingCategory2);
             $("#analyzeCategory2").text(aliTag);
+            $("#analyzeCategory3_1").text(haoyiTag1);
+            $("#analyzeCategory3_2").text(haoyiTag2);
 
             // 图片信息
             for (let i = 0; i <= 6; i++) {
@@ -571,7 +596,7 @@
                             var imgIndex = j;
                             break;
                         case 1:
-                            var imgIndex = mobilenetList[questionId][j];
+                            var imgIndex = mobilenetList[realVideoId][j];
                             break;
                         case 2:
                             // var imgIndex = nasnetList[questionId][j];
@@ -580,13 +605,13 @@
                             // var imgIndex = resnetList[questionId][j];
                             break;
                         case 4:
-                            var imgIndex = technical_scoreList[questionId][j];
+                            var imgIndex = technical_scoreList[realVideoId][j];
                             break;
                         case 5:
-                            var imgIndex = vgg16_ftList[questionId][j];
+                            var imgIndex = vgg16_ftList[realVideoId][j];
                             break;
                         case 6:
-                            var imgIndex = vgg16_ft_new_negList[questionId][j];
+                            var imgIndex = vgg16_ft_new_negList[realVideoId][j];
                             break;
                     }
 
