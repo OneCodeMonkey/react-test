@@ -343,6 +343,11 @@
         var configure_json_val = $.parseJSON(configure_json);
 
         var questionList = [];
+        let temp = [];
+        temp["video_id"] = 0;
+        temp["url"] = "";
+        questionList.push(temp);
+
         for (let key in configure_json_val) {
             let temp = [];
             temp["video_id"] = key;
