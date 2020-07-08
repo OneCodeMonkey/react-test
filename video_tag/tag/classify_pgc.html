@@ -245,6 +245,11 @@
             V2_UGCList[key] = temp;
         }
 
+        // 读取浩艺分类映射
+        var haoyi_category_mapping_json = $.ajax({url: "../haoyi_category_mapping.json",async: false}).responseText;
+        var haoyi_category_mapping_json_val = $.parseJSON(haoyi_category_mapping_json);
+        var haoyi_category_mappingList = haoyi_category_mapping_json_val;
+
         // console.log(haoyi_pgcList);
         // console.log(haoyi_ugcList);
         // console.log(NeXtVLAD_PGCList);
@@ -374,6 +379,52 @@
             btnNext();
         });
 
+    </script>
+
+    <!--    添加悬浮事件-->
+    <script>
+        const alternatives = [
+            'analyzeCategory1_1',
+            'analyzeCategory1_2',
+            'analyzeCategory1_3',
+            'analyzeCategory1_4',
+            'analyzeCategory1_5',
+            'analyzeCategory3_1',
+            'analyzeCategory3_2',
+            'analyzeCategory3_3',
+            'analyzeCategory4_1',
+            'analyzeCategory4_2',
+            'analyzeCategory4_3',
+            'analyzeCategory4_4',
+            'analyzeCategory4_5',
+        ]
+        for (let i = 0; i < alternatives.length; i++) {
+            let elementName = '#' + alternatives[i];
+
+            $(elementName).mouseover(function () {
+                console.log(1);
+                let elementText = $(this).text();
+                // 转换 V2 算法的结果的连字符，取前面的分类英文名
+                if (elementText.indexOf("--") !== -1) {
+                    elementText = elementText.split("--")[0];
+                }
+
+                let categoryList = haoyi_category_mappingList[elementText];
+
+                let categoryStr = "";
+                let count = 1;
+                for (let j = 0; j < categoryList.length; j++) {
+                    if (categoryList[j] !== 'undefined') {
+                        categoryStr += count.toString() + ". " + categoryList[j];
+                        count++;
+                        if (j !== categoryList.length - 1) {
+                            categoryStr += "\n\n";
+                        }
+                    }
+                }
+                $(this).attr('title', categoryStr);
+            })
+        }
     </script>
 </body>
 </html>
