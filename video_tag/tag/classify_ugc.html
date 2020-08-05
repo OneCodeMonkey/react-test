@@ -107,27 +107,27 @@
                     <span id="analyzeCategory3_5">未知</span>
                 </h4>
 
-                <!--                <h3>Haoyi</h3>-->
-                <!--                <h4 id="cookieInfo4">-->
-                <!--                    —— top1：-->
-                <!--                    <span id="analyzeCategory4_1">未知</span>-->
-                <!--                </h4>-->
-                <!--                <h4 id="cookieInfo4_1">-->
-                <!--                    —— top2：-->
-                <!--                    <span id="analyzeCategory4_2">未知</span>-->
-                <!--                </h4>-->
-                <!--                <h4 id="cookieInfo4_2">-->
-                <!--                    —— top3：-->
-                <!--                    <span id="analyzeCategory4_3">未知</span>-->
-                <!--                </h4>-->
-                <!--                <h4 id="cookieInfo4_3">-->
-                <!--                    —— top4：-->
-                <!--                    <span id="analyzeCategory4_4">未知</span>-->
-                <!--                </h4>-->
-                <!--                <h4 id="cookieInfo4_4">-->
-                <!--                    —— top5：-->
-                <!--                    <span id="analyzeCategory4_5">未知</span>-->
-                <!--                </h4>-->
+                <h3>文本标题分类</h3>
+                <h4 id="cookieInfo4">
+                    —— top1：
+                    <span id="analyzeCategory4_1">&nbsp;</span>
+                </h4>
+                <h4 id="cookieInfo4_1">
+                    —— top2：
+                    <span id="analyzeCategory4_2">&nbsp;</span>
+                </h4>
+                <h4 id="cookieInfo4_2">
+                    —— top3：
+                    <span id="analyzeCategory4_3">&nbsp;</span>
+                </h4>
+                <h4 id="cookieInfo4_3">
+                    —— top4：
+                    <span id="analyzeCategory4_4">&nbsp;</span>
+                </h4>
+                <h4 id="cookieInfo4_4">
+                    —— top5：
+                    <span id="analyzeCategory4_5">&nbsp;</span>
+                </h4>
             </div>
         </div>
         <div class="row">
@@ -257,6 +257,13 @@
             V2_UGCList[key] = temp;
         }
 
+        // ugc_title_classify
+        var ugc_title_classify_json = $.ajax({url: "ugc_txt_result.json",async: false}).responseText;
+        var ugc_title_classify_json_val = $.parseJSON(ugc_title_classify_json);
+        // pgc_title_classify
+        var pgc_title_classify_json = $.ajax({url: "pgc_txt_result.json",async: false}).responseText;
+        var pgc_title_classify_json_val = $.parseJSON(pgc_title_classify_json);
+
         // 读取浩艺分类映射
         var haoyi_category_mapping_json = $.ajax({url: "../haoyi_category_mapping.json",async: false}).responseText;
         var haoyi_category_mapping_json_val = $.parseJSON(haoyi_category_mapping_json);
@@ -338,6 +345,13 @@
             $("#analyzeCategory3_4").text(V2_UGCList[realVideoId][3]);
             $("#analyzeCategory3_5").text(V2_UGCList[realVideoId][4]);
 
+            for (let i = 0; i < 5; i++) {
+                $("#analyzeCategory4_" + (i + 1)).text("");
+                if (ugc_title_classify_json_val[realVideoId].length > i && ugc_title_classify_json_val[realVideoId][i] !== undefined) {
+                    $("#analyzeCategory4_" + (i + 1)).text(ugc_title_classify_json_val[realVideoId][i]);
+                }
+            }
+
             // $("#analyzeCategory4_1").text(haoyi_ugcList[realVideoId][0]);
             // $("#analyzeCategory4_2").text(haoyi_ugcList[realVideoId][1]);
             // $("#analyzeCategory4_3").text(haoyi_ugcList[realVideoId][2]);
@@ -409,11 +423,11 @@
             'analyzeCategory3_3',
             'analyzeCategory3_4',
             'analyzeCategory3_5',
-            // 'analyzeCategory4_1',
-            // 'analyzeCategory4_2',
-            // 'analyzeCategory4_3',
-            // 'analyzeCategory4_4',
-            // 'analyzeCategory4_5',
+            'analyzeCategory4_1',
+            'analyzeCategory4_2',
+            'analyzeCategory4_3',
+            'analyzeCategory4_4',
+            'analyzeCategory4_5',
         ]
         for (let i = 0; i < alternatives.length; i++) {
             let elementName = '#' + alternatives[i];
