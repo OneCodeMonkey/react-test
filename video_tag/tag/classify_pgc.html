@@ -30,7 +30,7 @@
         }
 
         #analyzeCategory1_1, #analyzeCategory1_2, #analyzeCategory1_3, #analyzeCategory1_4, #analyzeCategory1_5,
-        #analyzeCategory3_1,#analyzeCategory3_2,#analyzeCategory3_3,
+        #analyzeCategory3_1,#analyzeCategory3_2,#analyzeCategory3_3,#analyzeCategory3_4,#analyzeCategory3_5,
         #analyzeCategory4_1, #analyzeCategory4_2, #analyzeCategory4_3, #analyzeCategory4_4, #analyzeCategory4_5{
             font-style: italic;
             color: blue;
@@ -85,7 +85,7 @@
                     <span id="analyzeCategory1_5">未知</span>
                 </h4>
 
-                <h3>V2</h3>
+                <h3>V2_new</h3>
                 <h4 id="cookieInfo3">
                     —— top1：
                     <span id="analyzeCategory3_1">未知</span>
@@ -98,28 +98,36 @@
                     —— top3：
                     <span id="analyzeCategory3_3">未知</span>
                 </h4>
-
-                <h3>Haoyi</h3>
-                <h4 id="cookieInfo4">
-                    —— top1：
-                    <span id="analyzeCategory4_1">未知</span>
-                </h4>
-                <h4 id="cookieInfo4_1">
-                    —— top2：
-                    <span id="analyzeCategory4_2">未知</span>
-                </h4>
-                <h4 id="cookieInfo4_2">
-                    —— top3：
-                    <span id="analyzeCategory4_3">未知</span>
-                </h4>
-                <h4 id="cookieInfo4_3">
+                <h4 id="cookieInfo3_3">
                     —— top4：
-                    <span id="analyzeCategory4_4">未知</span>
+                    <span id="analyzeCategory3_4">未知</span>
                 </h4>
-                <h4 id="cookieInfo4_4">
+                <h4 id="cookieInfo3_4">
                     —— top5：
-                    <span id="analyzeCategory4_5">未知</span>
+                    <span id="analyzeCategory3_5">未知</span>
                 </h4>
+
+<!--                <h3>Haoyi</h3>-->
+<!--                <h4 id="cookieInfo4">-->
+<!--                    —— top1：-->
+<!--                    <span id="analyzeCategory4_1">未知</span>-->
+<!--                </h4>-->
+<!--                <h4 id="cookieInfo4_1">-->
+<!--                    —— top2：-->
+<!--                    <span id="analyzeCategory4_2">未知</span>-->
+<!--                </h4>-->
+<!--                <h4 id="cookieInfo4_2">-->
+<!--                    —— top3：-->
+<!--                    <span id="analyzeCategory4_3">未知</span>-->
+<!--                </h4>-->
+<!--                <h4 id="cookieInfo4_3">-->
+<!--                    —— top4：-->
+<!--                    <span id="analyzeCategory4_4">未知</span>-->
+<!--                </h4>-->
+<!--                <h4 id="cookieInfo4_4">-->
+<!--                    —— top5：-->
+<!--                    <span id="analyzeCategory4_5">未知</span>-->
+<!--                </h4>-->
             </div>
         </div>
         <div class="row">
@@ -221,8 +229,8 @@
             NeXtVLAD_UGCList[key] = temp;
         }
 
-        // V2_PGC
-        var V2_PGC_json = $.ajax({url: "V2_PGC.json",async: false}).responseText;
+        // V2_new_PGC
+        var V2_PGC_json = $.ajax({url: "V2_new_PGC.json",async: false}).responseText;
         var V2_PGC_json_val = $.parseJSON(V2_PGC_json);
         var V2_PGCList = [];
         for (let key in V2_PGC_json_val) {
@@ -230,11 +238,13 @@
             temp[0] = V2_PGC_json_val[key][0];
             temp[1] = V2_PGC_json_val[key][1];
             temp[2] = V2_PGC_json_val[key][2];
+            temp[3] = V2_PGC_json_val[key][3];
+            temp[4] = V2_PGC_json_val[key][4];
             V2_PGCList[key] = temp;
         }
 
-        // V2_UGC
-        var V2_UGC_json = $.ajax({url: "V2_UGC.json",async: false}).responseText;
+        // V2_new_UGC
+        var V2_UGC_json = $.ajax({url: "V2_new_UGC.json",async: false}).responseText;
         var V2_UGC_json_val = $.parseJSON(V2_UGC_json);
         var V2_UGCList = [];
         for (let key in V2_UGC_json_val) {
@@ -242,6 +252,8 @@
             temp[0] = V2_UGC_json_val[key][0];
             temp[1] = V2_UGC_json_val[key][1];
             temp[2] = V2_UGC_json_val[key][2];
+            temp[3] = V2_UGC_json_val[key][3];
+            temp[4] = V2_UGC_json_val[key][4];
             V2_UGCList[key] = temp;
         }
 
@@ -323,11 +335,14 @@
             $("#analyzeCategory3_1").text(V2_PGCList[realVideoId][0]);
             $("#analyzeCategory3_2").text(V2_PGCList[realVideoId][1]);
             $("#analyzeCategory3_3").text(V2_PGCList[realVideoId][2]);
-            $("#analyzeCategory4_1").text(haoyi_pgcList[realVideoId][0]);
-            $("#analyzeCategory4_2").text(haoyi_pgcList[realVideoId][1]);
-            $("#analyzeCategory4_3").text(haoyi_pgcList[realVideoId][2]);
-            $("#analyzeCategory4_4").text(haoyi_pgcList[realVideoId][3]);
-            $("#analyzeCategory4_5").text(haoyi_pgcList[realVideoId][4]);
+            $("#analyzeCategory3_4").text(V2_PGCList[realVideoId][3]);
+            $("#analyzeCategory3_5").text(V2_PGCList[realVideoId][4]);
+
+            // $("#analyzeCategory4_1").text(haoyi_pgcList[realVideoId][0]);
+            // $("#analyzeCategory4_2").text(haoyi_pgcList[realVideoId][1]);
+            // $("#analyzeCategory4_3").text(haoyi_pgcList[realVideoId][2]);
+            // $("#analyzeCategory4_4").text(haoyi_pgcList[realVideoId][3]);
+            // $("#analyzeCategory4_5").text(haoyi_pgcList[realVideoId][4]);
         }
 
         if (getCookieVariable("pgc_question_id") === "") {
@@ -392,11 +407,13 @@
             'analyzeCategory3_1',
             'analyzeCategory3_2',
             'analyzeCategory3_3',
-            'analyzeCategory4_1',
-            'analyzeCategory4_2',
-            'analyzeCategory4_3',
-            'analyzeCategory4_4',
-            'analyzeCategory4_5',
+            'analyzeCategory3_4',
+            'analyzeCategory3_5',
+            // 'analyzeCategory4_1',
+            // 'analyzeCategory4_2',
+            // 'analyzeCategory4_3',
+            // 'analyzeCategory4_4',
+            // 'analyzeCategory4_5',
         ]
         for (let i = 0; i < alternatives.length; i++) {
             let elementName = '#' + alternatives[i];
