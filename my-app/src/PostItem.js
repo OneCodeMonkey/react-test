@@ -6,8 +6,8 @@ class PostItem extends Component {
         return (
             <li>
                 <div>{title}</div>
-                <div>{author}</div>
-                <div>{date}</div>
+                <div>创建人：<span>{author}</span></div>
+                <div>创建时间：<span>{date}</span></div>
             </li>
         );
     }
