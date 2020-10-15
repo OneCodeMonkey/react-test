@@ -14,11 +14,11 @@ class PostList extends Component {
                 BBS帖子列表：
                 <ul>
                     {data.map(item =>
-                        <PostItem>
+                        <PostItem
                             title={item.title}
                             author={item.author}
                             date={item.date}
-                        </PostItem>
+                        />
                     )}
                 </ul>
             </div>
