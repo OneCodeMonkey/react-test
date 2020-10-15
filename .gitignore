@@ -1,2 +1,9 @@
 .idea/*
 .env
+# video_tag
+video_tag/tag/V2_PGC.json.bak
+video_tag/tag/V2_UGC.json.bak
+
+# react-app
+my-app/node_modules/*
+my-app/yarn.lock
